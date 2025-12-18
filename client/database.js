@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 
 const envConfig = process.env.SQL_CONFIG;
-console.log('Working with sql config: ' + SQL_CONFIG)
+console.log('Working with sql config: ' + envConfig)
 const sqlConfig = JSON.parse(envConfig || '{"host":"MYSQLHOST", "database":"MYSQLDATABASE", "user":"MYSQLUSER", "password":"MYSQLPASSWORD"}');
 
 //console.log('Working with sql config: ' + JSON.stringify(sqlConfig))
