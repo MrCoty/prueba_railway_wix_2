@@ -7,7 +7,7 @@ const { wrapError, errorMiddleware } = require('./utils/error-middleware')
 const authMiddleware = require('./utils/auth-middleware')
 
 const app = express()
-const port = process.env.PORT;
+const port = process.env.MYSQLPORT;
 
 app.use(bodyParser.json())
 app.use(authMiddleware)
