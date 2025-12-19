@@ -2,8 +2,16 @@ const mysql = require('mysql')
 
 const envConfig = process.env.SQL_CONFIG;
 
-const sqlConfig = JSON.parse(envConfig || '{"host":${process.env.MYSQLHOST}, "database":${process.env.MYSQLDATABASE}, "user":${process.env.MYSQLUSER}, "password":${process.env.MYSQLPASSWORD}}');
-
+const sqlConfig = {
+  host: process.env.MYSQLHOST,
+  database: process.env.MYSQLDATABASE,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  port: 3306
+};
+if (!sqlConfig.host || !sqlConfig.user || !sqlConfig.database) {
+  throw new Error('Missing MySQL environment variables');
+}
 //console.log('Working with sql config: ' + JSON.stringify(sqlConfig))
 const connection = mysql.createConnection(sqlConfig);
 
