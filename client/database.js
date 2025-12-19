@@ -2,7 +2,7 @@ const mysql = require('mysql')
 
 const envConfig = process.env.SQL_CONFIG;
 
-const sqlConfig = JSON.parse(envConfig || '{"host":"process.env.MYSQLHOST", "database":"process.env.MYSQLDATABASE", "user":"process.env.MYSQLUSER", "password":"process.env.MYSQLPASSWORD"}');
+const sqlConfig = JSON.parse(envConfig || '{"host":${process.env.MYSQLHOST}, "database":${process.env.MYSQLDATABASE}, "user":${process.env.MYSQLUSER}, "password":${process.env.MYSQLPASSWORD}}');
 
 //console.log('Working with sql config: ' + JSON.stringify(sqlConfig))
 const connection = mysql.createConnection(sqlConfig);
