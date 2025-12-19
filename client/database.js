@@ -2,16 +2,8 @@ const mysql = require('mysql')
 
 const envConfig = process.env.SQL_CONFIG;
 
-const sqlConfig = {
-  host: process.env.MYSQLHOST,
-  database: process.env.MYSQLDATABASE,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  port: 3306
-};
-if (!sqlConfig.host || !sqlConfig.user || !sqlConfig.database) {
-  throw new Error('Missing MySQL environment variables');
-}
+const sqlConfig = JSON.parse(envConfig || '{"host":"mysql-hllu.railway.internal", "database":"railway", "user":"root", "password":""}');
+
 //console.log('Working with sql config: ' + JSON.stringify(sqlConfig))
 const connection = mysql.createConnection(sqlConfig);
 
