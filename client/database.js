@@ -2,7 +2,13 @@ const mysql = require('mysql')
 
 const envConfig = process.env.SQL_CONFIG;
 
-const sqlConfig = JSON.parse(envConfig || '{"host":"mysql-hllu.railway.internal", "database":"railway", "user":"root", "password":""}');
+const sqlConfig = envConfig ? JSON.parse(envConfig) : {
+  host: process.env.MYSQLHOST,
+  database: process.env.MYSQLDATABASE,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  port: 3306
+};
 
 //console.log('Working with sql config: ' + JSON.stringify(sqlConfig))
 const connection = mysql.createConnection(sqlConfig);
@@ -70,7 +76,7 @@ const query = (query, values, handler) =>
     connection.query(query, values, (err, results, fields) => {
       if (err) {
         console.log(err);
-        reject(err)
+        return reject(err)
       }
 
       resolve(handler(results, fields))
