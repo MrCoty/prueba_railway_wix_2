@@ -1,5 +1,5 @@
 const BadRequestError = require('../../model/error/bad-request')
-const mysql = require('mysql')
+const mysql = require('mysql2')
 
 const EMPTY = ''
 

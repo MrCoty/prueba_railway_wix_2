@@ -1,5 +1,5 @@
 const { assert } = require('chai')
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const { parseFilter } = require('./filter-parser')
 const BadRequestError = require('../../model/error/bad-request')
 
@@ -143,7 +143,7 @@ describe('Filter Parser', () => {
           kind: 'filter',
           operator: '$eq',
           fieldName: 'foo',
-          value: 'bar'        
+          value: 'bar'
         }]
       }
 
