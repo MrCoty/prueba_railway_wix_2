@@ -27,23 +27,11 @@ try {
 // Log config for debugging (hide password)
 console.log('SQL Configuration:', { ...sqlConfig, password: '*****' });
 
-const connection = mysql.createConnection(sqlConfig);
-
-connection.connect(err => {
-  if (err) {
-    console.error('Error connecting to database:', err);
-    // Don't throw here, let the query handle it or process exit?
-    // Usually better to log and maybe exit if critical.
-  } else {
-    console.log('Successfully connected to the database.');
-  }
-});
-
-connection.on('error', err => {
-  console.error('Database connection error:', err);
-  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-    // Reconnect logic or exit
-  }
+const connection = mysql.createPool({
+  ...sqlConfig,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 exports.select = (table, clause = '', sortClause = '', skip = 0, limit = 1) =>
